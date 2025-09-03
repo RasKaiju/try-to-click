@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ucapan Ulang Tahun</title>
+  <style>
+  body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(to bottom, #0d1b2a, #1b263b, #000);
+  min-height: 100vh;
+  margin: 0;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  /* ✅ ini supaya bisa scroll */
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+    h1 {
+      font-size: 1.8em;
+      color: #ffb3d9;
+      margin-bottom: 10px;
+      animation: bounce 2s infinite;
+      z-index: 2;
+      position: relative;
+    }
+
+    p {
+      font-size: 1em;
+      color: #f1d5e5;
+      margin-bottom: 15px;
+      max-width: 90%;
+      line-height: 1.5em;
+      z-index: 2;
+      position: relative;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* 🌟 Bintang */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite alternate;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.2; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* 🌙 Bulan */
+    .moon {
+      position: absolute;
+      top: 50px;
+      right: 60px;
+      width: 80px;
+      height: 80px;
+      background: #fdfdfd;
+      border-radius: 50%;
+      box-shadow: 0 0 20px 10px rgba(255,255,200,0.5);
+      z-index: 1;
+    }
+    .moon::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 70px;
+      height: 70px;
+      background: #51699600;
+      border-radius: 50%;
+    }
+
+    /* ✨ Kunang-kunang */
+    .firefly {
+      position: absolute;
+      background: yellow;
+      border-radius: 50%;
+      width: 6px;
+      height: 6px;
+      opacity: 0.8;
+      animation: fly 10s linear infinite, blink 1.5s infinite alternate;
+    }
+    @keyframes fly {
+      0%   { transform: translate(0, 0); }
+      25%  { transform: translate(80px, -100px); }
+      50%  { transform: translate(-60px, -150px); }
+      75%  { transform: translate(-120px, 80px); }
+      100% { transform: translate(0, 0); }
+    }
+    @keyframes blink {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ▶ Tombol Play */
+    .play-btn {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 3;
+    }
+    .play-btn:hover {
+      background: #e73370;
+      transform: translateX(-50%) scale(1.1);
+    }
+
+    /* 🎁 Tombol Gift */
+    .gift-btn {
+      margin-top: 120px;
+      padding: 12px 20px;
+      background: #ff4081;
+      border: none;
+      color: white;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      max-width: 90%;
+      z-index: 2;
+      position: relative;
+    }
+    .gift-btn:hover {
+      background: #e73370;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 400px) {
+      h1 { font-size: 1.5em; }
+      p { font-size: 0.9em; }
+      .gift-btn { font-size: 13px; padding: 10px 15px; }
+    }
+
+    /* 🐟 Darwin */
+    .darwin-container {
+      position: relative;
+      display: inline-block;
+      margin: 20px auto;
+      animation: float 3s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    .darwin-img {
+      width: 140px;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    /* ✉️ Amplop Love di bawah Darwin */
+    .darwin-envelope {
+      margin: 20px auto 0;
+      width: 100px;
+      height: 65px;
+      background: #ff4d6d;
+      border-radius: 6px;
+      position: relative;
+      animation: float-env 3s ease-in-out infinite;
+    }
+    .darwin-envelope:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 30px solid #ff8095;
+    }
+
+    .heart {
+      position: absolute;
+      top: 20px;
+      left: 35px;
+      width: 30px;
+      height: 30px;
+      background: red;
+      transform: rotate(-45deg);
+      animation: beat 1s infinite;
+    }
+    .heart:before,
+    .heart:after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart:before { top: -15px; left: 0; }
+    .heart:after { left: 15px; top: 0; }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1) rotate(-45deg); }
+      50% { transform: scale(1.2) rotate(-45deg); }
+    }
+
+    @keyframes float-env {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="shooting-stars"></canvas>
+<style>
+  #shooting-stars {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>
+<script>
+  const canvas = document.getElementById("shooting-stars"),
+        ctx = canvas.getContext("2d");
+  canvas.width = innerWidth; 
+  canvas.height = innerHeight;
+
+  class Star {
+    constructor(){
+      this.reset();
+    }
+    reset(){
+      this.x = Math.random()*canvas.width;
+      this.y = Math.random()*canvas.height/2; // mulai dari atas
+      this.len = Math.random()*80+50;
+      this.speed = Math.random()*6+4;
+      this.size = Math.random()*2+1;
+      this.alpha = 1;
+    }
+    draw(){
+      ctx.strokeStyle = `rgba(255,255,255,${this.alpha})`;
+      ctx.lineWidth = this.size;
+      ctx.beginPath();
+      ctx.moveTo(this.x,this.y);
+      ctx.lineTo(this.x-this.len,this.y+this.len/2);
+      ctx.stroke();
+    }
+    update(){
+      this.x += -this.speed;
+      this.y += this.speed/2;
+      this.alpha -= 0.01;
+      if(this.alpha<=0) this.reset();
+    }
+  }
+
+  const stars = Array.from({length:12},()=>new Star());
+
+  function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(s=>{s.update();s.draw();});
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  addEventListener("resize",()=>{
+    canvas.width = innerWidth; 
+    canvas.height = innerHeight;
+  });
+</script>
+<canvas id="clouds"></canvas>
+<style>
+  #clouds {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+</style>
+<script>
+  const cloudCanvas = document.getElementById("clouds"),
+        cctx = cloudCanvas.getContext("2d");
+  cloudCanvas.width = innerWidth;
+  cloudCanvas.height = innerHeight;
+
+  class Cloud {
+    constructor(x,y,speed,scale){
+      this.x=x; this.y=y; this.speed=speed; this.scale=scale;
+    }
+    draw(){
+      cctx.save();
+      cctx.translate(this.x,this.y);
+      cctx.scale(this.scale,this.scale);
+
+      cctx.fillStyle="rgba(255,255,255,0.08)";
+      cctx.beginPath();
+      cctx.arc(0,0,60,0,Math.PI*2);
+      cctx.arc(60,-20,50,0,Math.PI*2);
+      cctx.arc(120,0,70,0,Math.PI*2);
+      cctx.arc(60,20,55,0,Math.PI*2);
+      cctx.closePath();
+      cctx.fill();
+
+      cctx.restore();
+    }
+    update(){
+      this.x += this.speed;
+      if(this.x > cloudCanvas.width+200) this.x = -200;
+      this.draw();
+    }
+  }
+
+  let clouds=[];
+  for(let i=0;i<5;i++){
+    let x = Math.random()*cloudCanvas.width;
+    let y = Math.random()*cloudCanvas.height*0.5;
+    let speed = 0.2+Math.random()*0.3;
+    let scale = 0.5+Math.random()*1.2;
+    clouds.push(new Cloud(x,y,speed,scale));
+  }
+
+  function animateClouds(){
+    cctx.clearRect(0,0,cloudCanvas.width,cloudCanvas.height);
+    clouds.forEach(cl=>cl.update());
+    requestAnimationFrame(animateClouds);
+  }
+  animateClouds();
+
+  addEventListener("resize",()=>{
+    cloudCanvas.width=innerWidth;
+    cloudCanvas.height=innerHeight;
+  });
+</script>
+
+  
+  <!-- 🌙 Bulan -->
+  <div class="moon"></div>
+
+  <!-- ⭐ Banyak bintang -->
+  <div class="star" style="top:15%; left:20%; animation-delay:0s;"></div>
+  <div class="star" style="top:10%; left:50%; animation-delay:1s;"></div>
+  <div class="star" style="top:25%; left:70%; animation-delay:2s;"></div>
+  <div class="star" style="top:40%; left:30%; animation-delay:0.5s;"></div>
+  <div class="star" style="top:60%; left:80%; animation-delay:1.5s;"></div>
+  <div class="star" style="top:75%; left:40%; animation-delay:2.5s;"></div>
+  <div class="star" style="top:85%; left:15%; animation-delay:3s;"></div>
+
+  <!-- ✨ Kunang-kunang -->
+  <div class="firefly" style="top:10%; left:20%; animation-duration:12s;"></div>
+  <div class="firefly" style="top:30%; left:80%; animation-duration:15s;"></div>
+  <div class="firefly" style="top:50%; left:10%; animation-duration:18s;"></div>
+  <div class="firefly" style="top:70%; left:60%; animation-duration:20s;"></div>
+  <div class="firefly" style="top:85%; left:40%; animation-duration:22s;"></div>
+  <div class="firefly" style="top:25%; left:50%; animation-duration:14s;"></div>
+  <div class="firefly" style="top:60%; left:75%; animation-duration:16s;"></div>
+<canvas id="buildings"></canvas>
+<style>
+  #buildings {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    z-index: 2;
+    pointer-events: none;
+  }
+</style>
+<script>
+  const bCanvas = document.getElementById("buildings"),
+        bctx = bCanvas.getContext("2d");
+
+  function drawBuildings(){
+    bCanvas.width = innerWidth;
+    bCanvas.height = innerHeight * 0.35;
+
+    const w = bCanvas.width;
+    const h = bCanvas.height;
+
+    let x = 0;
+    while(x < w){
+      let bw = 50 + Math.random()*60;
+      let bh = 80 + Math.random()*h*0.7;
+      bctx.fillStyle = "#0a0a0a";
+      bctx.fillRect(x,h-bh,bw,bh);
+
+      for(let i=0;i<50;i++){
+        let winX = x + Math.floor(Math.random()*bw);
+        let winY = h-bh + Math.floor(Math.random()*bh);
+        if(Math.random() > 0.7){
+          bctx.fillStyle = "rgba(255,220,100,0.8)";
+          bctx.fillRect(winX, winY, 3, 3);
+        }
+      }
+      x += bw + Math.random()*15;
+    }
+  }
+
+  drawBuildings();
+  addEventListener("resize", drawBuildings);
+</script>
+
+
+  <h1>🎉 Selamat Ulang Tahun 🎉</h1>
+  <p>💖Untuk Nindya atau biasa ku panggil Mbrott 💖</p>
+  <p>Hai cantikk selamat ulang tahun yaa, hari ini kamu udah menginjak umur 19 tahun, ga kerasa yaa, dulu pertama kenal masih bocil, dan sekarang udah di akhir usia belasan wkwkw.</p>
+  <p>Sejauh yang ku kenal, kamu tuh orangnya lucu, ya walaupun kadang ngeyelan, dan ovt an, tapi aku tau kamu tuh pingin yang terbaik buat semua nya, tapi tolong buat ga terlalu memaksakan diri yaa cantik, kurang kurangin OVT nyaa.</p>
+  <p>Aku berharap, buat kedepannya kamu bisa menjadi sesosok perempuan yang mandiri, dan selalu bisa dibanggakan keluarga, dan orang orang sekitar, dan semoga semua jalan menuju mimpi yang sedang dirajut selalu mendapatkan keberkahan, dan kemudahan. Oiya nitip ucapan buat rizka sekalian yahh hehehe.</p>
+  <p>scroll ke bawah</p>
+
+  <!-- 🎵 Audio -->
+  <audio id="bg-music" src="lagu.mp3"></audio>
+
+  <!-- 🐟 Darwin dengan amplop love -->
+  <div class="darwin-container">
+    <button class="play-btn" onclick="toggleMusic()">▶ pencet sebelum membaca</button>
+    <img src="gambar.png" alt="Darwin" class="darwin-img">
+    <div class="darwin-envelope">
+      <div class="heart"></div>
+    </div>
+  </div>
+
+  <a href="https://wa.me/6285141224851?text= aku mau ambil hadiah nya dongg biii 💖"
+     target="_blank">
+    <button class="gift-btn">💌 PENCET SINI MBROTTT</button>
+  </a>
+
+  <script>
+    const audio = document.getElementById("bg-music");
+    const btn = document.querySelector(".play-btn");
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = "⏸";
+      } else {
+        audio.pause();
+        btn.textContent = "▶";
+      }
+    }
+  </script>
+</body>
+</html>
